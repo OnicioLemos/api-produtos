@@ -1,0 +1,21 @@
+// Schema do Prisma: aqui definimos o MODEL no nível do banco de dados.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Produto {
+  id        Int      @id @default(autoincrement())
+  nome      String   @db.VarChar(100)
+  preco     Decimal  @db.Decimal(10, 2)
+  estoque   Int      @default(0)
+  criadoEm  DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  @@map("produtos")
+}
